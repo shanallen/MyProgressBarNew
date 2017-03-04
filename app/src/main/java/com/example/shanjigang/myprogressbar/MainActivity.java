@@ -58,7 +58,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        textView.setText(getStringFromNative());
+        if (0 == BuildConfig.STR_KEY) {
+            textView.setText(EnvimentData.DEVELOP_PATH);
+        } else if (1 == BuildConfig.STR_KEY) {
+            textView.setText(EnvimentData.PRODUCT_PATH);
+        }
+//        textView.setText(getStringFromNative());
         btRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
