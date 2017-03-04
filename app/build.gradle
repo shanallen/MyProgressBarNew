@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+//    signingConfigs {
+//        debug4zj {
+//            keyAlias 'debug4zj'
+//            keyPassword 'debug4zj'
+//            storeFile file('/Users/zejian/Documents/android-studio-workplace/debug4zj.jks')
+//            storePassword 'debug4zj'
+//        }
+//    }
     compileSdkVersion 23
     buildToolsVersion "24.0.3"
     defaultConfig {
@@ -13,7 +21,7 @@ android {
 
         ndk {
 
-            moduleName"myNativeLib"
+            moduleName "myNativeLib"
 
             ldLibs "log", "z", "m"
 
@@ -25,6 +33,24 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug4zj
+        }
+    }
+
+    //配置多版本的apk
+    productFlavors {
+        Beta {
+            applicationId "com.example.shanjigang.myprogressbar.beta"
+//            manifestPlaceholders = [app_name:"multi_versionapk.beta" ,icon: "@mipmap/ic_launcher_beta"]
+            //在java代码中具体的使用方式为：context.getResources().getString(R.string.strKey);
+            buildConfigField "int", "STR_KEY", "0"
+            resValue("string", "strKey", "dev")
+        }
+        Releases {
+            applicationId "com.example.shanjigang.myprogressbar.release"
+//            manifestPlaceholders = [app_name:"multi_versionapk.release",icon: "@mipmap/ic_launcher_releases"]
+            buildConfigField "int", "STR_KEY", "1"
+            resValue("string", "strKey", "release")
         }
     }
 }
